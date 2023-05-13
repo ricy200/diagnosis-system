@@ -1,6 +1,7 @@
+
+% Test comment.
+
 function TrainMLmodel()
-
-
 
     load('dataset.mat'); %Load our dataset with diseas and symptoms
     
