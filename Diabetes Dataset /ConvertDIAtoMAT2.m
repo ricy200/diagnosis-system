@@ -30,6 +30,6 @@ function ConvertDIAtoMAT2 ()
 
     fclose(curr_file); %close the file
 
-    save('DiabetesDataset.mat','inputs', 'outputs');
+    save('Diabetes Dataset /DiabetesDataset.mat','inputs', 'outputs');
 
 end

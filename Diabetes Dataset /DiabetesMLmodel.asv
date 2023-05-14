@@ -1,8 +1,11 @@
 
 function DiabetesMLmodel()
 
-    load('DiabetesDataset.mat', 'inputs', 'outputs')
+    load('DiabetesDataset.mat');  %load file
     rng("default")  % reproducibility of the partition
+
+    inputs = [];
+    outputs = [];
 
     SplitSize = 0.2;
 
@@ -17,11 +20,8 @@ function DiabetesMLmodel()
     
     Mdl = fitcnet(FeaturesTrain,TargetTrain);
 
-    trainingLoss = loss(Mdl, FeaturesTrain, TargetTrain);
     testingLoss = loss(Mdl, FeaturesTest, TargetTest);
 
-    trainingAccuracy = 1-trainingLoss;
     testingAccuracy = 1-testingLoss;
 
-    disp("Training accuracy: " + trainingAccuracy)
-    disp("Testing accuracy: " + testingAccuracy);
+    disp(testingAccuracy);
