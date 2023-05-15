@@ -24,7 +24,6 @@ function TrainMLmodel()
     [TargetTestPredicted TargetTestScore] = predict(MLmodel,FeaturesTest); % Use our trained model on the test set features
 %     TargetTestScore; %This is the probability of the class based on the model
     
-
     CnfusionMatrix = confusionmat(TargetTest,TargetTestPredicted);%Compute the confusion matrix (What have we done right and what have we done wrong)
     confusionchart(CnfusionMatrix,unique(TargetTest),'RowSummary','row-normalized'); %Show the confusion matrix with class labels
 %     confusionchart(CnfusionMatrix,'RowSummary','row-normalized'); %Show the confusion matrix without class labels

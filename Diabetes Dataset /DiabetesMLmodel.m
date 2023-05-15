@@ -15,8 +15,8 @@ function DiabetesMLmodel()
     
     MLmodel = fitcnet(FeaturesTrain,TargetTrain,'LayerSizes',[15 27]); % ML Model, classification network
 
-    [TargetTestPredicted TargetTestScore] = predict(MLmodel,FeaturesTest); % use the trained model on the test set features
-                                                                           % the TargetTestScore is the probability of the class based on the model
+    [TargetTestPredicted, ~] = predict(MLmodel,FeaturesTest); % use the trained model on the test set features
+                                                                           
     CnfusionMatrix = confusionmat(TargetTest,TargetTestPredicted); % compute the confusion matrix
     confusionchart(CnfusionMatrix,unique(TargetTest),'RowSummary','row-normalized'); % show the confusion matrix with class labels
     shg % show confusion matrix
@@ -30,5 +30,5 @@ function DiabetesMLmodel()
     disp("Testing accuracy: " + testingAccuracy); % output testing accuracy 
 
     save('diabetesModel.mat','MLmodel')
-    
+
 end
