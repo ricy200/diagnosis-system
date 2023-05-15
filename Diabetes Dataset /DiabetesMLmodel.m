@@ -28,3 +28,7 @@ function DiabetesMLmodel()
 
     disp("Training accuracy: " + trainingAccuracy) % output training accuracy
     disp("Testing accuracy: " + testingAccuracy); % output testing accuracy 
+
+    save('diabetesModel.mat','MLmodel')
+    
+end
