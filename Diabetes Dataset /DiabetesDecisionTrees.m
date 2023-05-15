@@ -36,6 +36,6 @@ function DiabetesDecisionTrees()
 
     accuracy % show the result in the console
 
-    save('DIAModelDecisionTrees.mat','MLmodelTrees') % save MLmodel
+    %save('DIAModelDecisionTrees.mat','MLmodelTrees') % save MLmodel
 
 end

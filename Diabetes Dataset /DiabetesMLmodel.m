@@ -29,6 +29,6 @@ function DiabetesMLmodel()
     disp("Training accuracy: " + trainingAccuracy) % output training accuracy
     disp("Testing accuracy: " + testingAccuracy); % output testing accuracy 
 
-    save('DIAModelNeuralNW.mat','MLmodel') %save MLmodel
+    %save('DIAModelNeuralNW.mat','MLmodel') %save MLmodel
 
 end
