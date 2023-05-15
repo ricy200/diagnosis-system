@@ -13,10 +13,15 @@ function DiabetesMLmodel()
     FeaturesTest = inputs(cv.test,:); % Select the testing data (Parameters) from the table as our features
     TargetTest = outputs(cv.test,:); % Select the testing data from the Outcome column as our target
     
-    Mdl = fitcnet(FeaturesTrain,TargetTrain); % ML Model, classification network
+    MLmodel = fitcnet(FeaturesTrain,TargetTrain); % ML Model, classification network
 
-    trainingLoss = loss(Mdl, FeaturesTrain, TargetTrain); % observe training loss
-    testingLoss = loss(Mdl, FeaturesTest, TargetTest); % observe testing loss
+    [TargetTestPredicted TargetTestScore] = predict(MLmodel,FeaturesTest); % use the trained model on the test set features
+                                                                           % the TargetTestScore is the probability of the class based on the model
+    CnfusionMatrix = confusionmat(TargetTest,TargetTestPredicted); % compute the confusion matrix
+    confusionchart(CnfusionMatrix,unique(TargetTest),'RowSummary','row-normalized'); % show the confusion matrix with class labels
+
+    trainingLoss = loss(MLmodel, FeaturesTrain, TargetTrain); % observe training loss
+    testingLoss = loss(MLmodel, FeaturesTest, TargetTest); % observe testing loss
 
     trainingAccuracy = 1-trainingLoss;
     testingAccuracy = 1-testingLoss;
