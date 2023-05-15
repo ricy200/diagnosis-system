@@ -1,14 +1,14 @@
 function ConvertDIAtoMAT2 ()
 
-    inputs = zeros(2768, 8); % to create the table with numbers
+    inputs = zeros(2768, 8); % allocate the table with the diabetes parameters 
     inputs_index = 0;
 
-    outputs = zeros(2768, 1);
+    outputs = zeros(2768, 1); % allocate the column with the variable "Outcome" for prediction
 
-    % open file again to reset pointer
-    curr_file = fopen("DiabetesDataset.csv");
 
-    fgetl(curr_file); % remove header.
+    curr_file = fopen("DiabetesDataset.csv"); % open file
+
+    fgetl(curr_file); % remove header 
 
     while ~feof(curr_file)
 
@@ -21,15 +21,16 @@ function ConvertDIAtoMAT2 ()
 
         lastEntry = size(curr_dat,2);
 
-        for i = 1:(lastEntry - 1) % insert data from csv file line per line
-            inputs(inputs_index,i) = new_dat(1,i);
+        for i = 1:(lastEntry - 1) % insert data from csv file line per line for the input parameters
+            inputs(inputs_index,i) = new_dat(1,i); 
+
         end
 
-        outputs(inputs_index, 1) = new_dat(1, lastEntry);
+        outputs(inputs_index, 1) = new_dat(1, lastEntry); % insert the Outcome parameter as predictor (output)
     end
 
     fclose(curr_file); %close the file
 
-    save('Diabetes Dataset /DiabetesDataset.mat','inputs', 'outputs');
+    save('DiabetesDataset.mat','inputs', 'outputs'); % save the tables for inputs and outputs
 
 end
