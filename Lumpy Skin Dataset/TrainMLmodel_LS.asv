@@ -1,0 +1,42 @@
+function TrainMLmodel_LS ()
+    
+    load('TEST Lumpy skin disease data.mat');
+
+    rng(1);
+
+    SplitSize = 0.2;
+    cv = cvpartition(size(test_target_ls,1),'HoldOut',SplitSize);
+
+    FeaturesTrain = test_symptoms_ls(cv.training, :);
+    TargetTrain = test_target_ls(cv.training, :);
+    FeaturesTest = test_symptoms_ls(cv.test, :);
+    TargetTest = test_target_ls(cv.test, :);
+
+    % save("test_DataForML_ls.mat", "FeaturesTrain", "TargetTrain", "FeaturesTest", "TargetTest");
+
+    MLmodel_ls = TreeBagger(50, FeaturesTrain, TargetTrain);
+   %     MLmodel_ls = fitcnet(FeaturesTrain,TargetTrain,'LayerSizes',20);
+   %     funktioniert irgendwie nicht
+   % MLmodel_ls = fitcknn(FeaturesTrain, TargetTrain, "NumNeighbors", 5);
+
+   [TargetTestPredictedC ~ ] = predict(MLmodel_ls,FeaturesTest);
+   TargetTestPredicted = str2double(TargetTestPredictedC); %str2double only needed for TreeBagger, not for 
+
+   CnfusionMatrix = confusionmat(TargetTest,TargetTestPredicted);
+   confusionchart(CnfusionMatrix,unique(TargetTest),'RowSummary','row-normalized');
+
+   save("test_DataForML_ls.mat", "FeaturesTrain", "TargetTrain", "FeaturesTest", "TargetTest", 'TargetTestPredicted');
+
+   ls_accuracy = 0.0;
+   
+   for i=1:size(TargetTest, 1)
+
+       if TargetTest(i, 1) == TargetTestPredicted(i, 1)
+           ls_accuracy = ls_accuracy + 1;
+       end
+   end
+   
+   ls_accuracy = ls_accuracy/double(size(TargetTest, 1)); %calculate accuracy of ML model
+   ls_accuracy %show accuracy in console
+
+end
