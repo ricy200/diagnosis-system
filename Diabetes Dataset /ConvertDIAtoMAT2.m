@@ -4,11 +4,30 @@ function ConvertDIAtoMAT2 ()
     inputs_index = 0;
 
     outputs = zeros(2768, 1); % allocate the column with the variable "Outcome" for prediction
+    all_parameters = []; % to save the parameters in a table
+    all_parameters_index = 0;
+
+    curr_file = fopen('DiabetesDataset.csv'); % open the file
+
+    line = fgetl(curr_file); % get first line
+
+    curr_data=strsplit(line,',');
+
+    for i = 1:size(curr_data,2) % create array with the symptoms
+        if ~isempty(deblank(curr_data{1,i}))
+
+            all_parameters_index = all_parameters_index + 1;
+
+            all_parameters{all_parameters_index,1} = deblank(curr_data{1,i});
+        end
+    end
+
+    fclose(curr_file); % close file 
 
 
-    curr_file = fopen("DiabetesDataset.csv"); % open file
+    curr_file = fopen("DiabetesDataset.csv"); % reopen file
 
-    fgetl(curr_file); % remove header 
+    curr_line = fgetl(curr_file); % skip first line
 
     while ~feof(curr_file)
 
@@ -31,6 +50,6 @@ function ConvertDIAtoMAT2 ()
 
     fclose(curr_file); %close the file
 
-    save('DiabetesDataset.mat','inputs', 'outputs'); % save the tables for inputs and outputs
+    save('DiabetesDataset.mat','inputs', 'outputs', 'all_parameters'); % save the tables for inputs and outputs
 
 end

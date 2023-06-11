@@ -1,7 +1,7 @@
 
 function DiabetesDecisionTrees()
 
-    load('DiabetesDataset.mat', 'inputs', 'outputs') % load file
+    load('DiabetesDataset.mat') % load file
     rng("default") % for reproducibility of the partition
 
     SplitSize = 0.2; % 80% training data and 20% testing data split
@@ -21,7 +21,7 @@ function DiabetesDecisionTrees()
 
     CnfusionMatrix = confusionmat(TargetTest,TargetTestPredicted); % compute the confusion matrix
     confusionchart(CnfusionMatrix,unique(TargetTest),'RowSummary','row-normalized'); % show the confusion matrix with class labels
-    shg % show confusion matrix
+    %shg % show confusion matrix
     
     accuracy=0.0; % initialize accuracy 
     for i=1:size(TargetTest,1) % go over each element in the testing set
@@ -36,6 +36,6 @@ function DiabetesDecisionTrees()
 
     accuracy % show the result in the console
 
-    %save('DIAModelDecisionTrees.mat','MLmodelTrees') % save MLmodel
+    save('DIAModelDecisionTrees.mat','MLmodelTrees') % save MLmodel
 
 end
