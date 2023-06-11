@@ -13,7 +13,7 @@ function ConvertDIAtoMAT2 ()
 
     curr_data=strsplit(line,',');
 
-    for i = 1:(size(curr_data,2) -1) % create array with the parameters
+    for i = 1:size(curr_data,2) % create array with the parameters
         if ~isempty(deblank(curr_data{1,i}))
 
             all_parameters_index = all_parameters_index + 1;
