@@ -1,0 +1,54 @@
+function ConvertLS_testToMAT ()
+
+    test_all_symptoms_ls = {}; % 16 symptoms to predict lumpy skin, important for GUI
+    test_all_symptoms_ls_index = 0;
+
+    test_symptoms_ls = []; % symptoms of all document cases of lumpy skin
+    test_symptoms_ls_index = 0; 
+
+    test_target_ls = []; % targets to know if patient has lumpy skin (1) or not (0)
+
+
+    test_current_file = fopen("TEST Lumpy skin disease data.csv");
+
+    test_line = fgetl(test_current_file); % skip header
+
+    test_current_data = strsplit(test_line,';');
+
+    % for-loop to get the header of csv and store the needed symptoms in a
+    % cell array
+    for i=1:(size(test_current_data,2)-1)
+            if ~isempty(deblank(test_current_data{1,i}))
+                test_all_symptoms_ls_index=test_all_symptoms_ls_index + 1; 
+                test_all_symptoms_ls{test_all_symptoms_ls_index,1}=deblank(test_current_data{1,i}); 
+            end
+    end
+    
+    fclose(test_current_file);
+
+    test_current_file = fopen("TEST Lumpy skin disease data.csv"); % open file again
+
+    test_line = fgetl(test_current_file); % get first line
+
+
+    % while-loop to store symptoms in an array
+    while ~feof(test_current_file)
+
+        test_line=fgetl(test_current_file); % get current line in the file
+        test_current_data=strsplit(test_line,';'); % split data
+
+        test_symptoms_ls_index=test_symptoms_ls_index + 1; % increase index
+        new_data=str2double(test_current_data); % convert strings to doubles
+
+        for i=1:(size(test_current_data, 2) - 1) % last column are the targets
+            test_symptoms_ls(test_symptoms_ls_index, i)=new_data(1,i);
+        end
+
+       test_target_ls(test_symptoms_ls_index, 1) = new_data(1, size(test_current_data,2));
+
+    end
+   
+    fclose(test_current_file);
+
+    save('TEST Lumpy skin disease data.mat', 'test_symptoms_ls', 'test_all_symptoms_ls', 'test_target_ls');
+end
