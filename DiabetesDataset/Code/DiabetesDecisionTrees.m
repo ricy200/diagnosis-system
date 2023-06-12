@@ -19,8 +19,8 @@ function DiabetesDecisionTrees()
     [TargetTestPredictedCell, ~] = predict(MLmodelTrees,FeaturesTest); % use the trained model on the test set features
     TargetTestPredicted = str2double(TargetTestPredictedCell); % convert cell type to double 
 
-    CnfusionMatrix = confusionmat(TargetTest,TargetTestPredicted); % compute the confusion matrix
-    confusionchart(CnfusionMatrix,unique(TargetTest),'RowSummary','row-normalized'); % show the confusion matrix with class labels
+    %CnfusionMatrix = confusionmat(TargetTest,TargetTestPredicted); % compute the confusion matrix
+    %confusionchart(CnfusionMatrix,unique(TargetTest),'RowSummary','row-normalized'); % show the confusion matrix with class labels
     %shg % show confusion matrix
     
     accuracy=0.0; % initialize accuracy 
@@ -36,6 +36,6 @@ function DiabetesDecisionTrees()
 
     accuracy % show the result in the console
 
-    save('DIAModelDecisionTrees.mat','MLmodelTrees') % save MLmodel
+    save('DiabetesDataset/Dataset and Models/DIAModelDecisionTrees.mat','MLmodelTrees','all_parameters') % save MLmodel
 
 end
