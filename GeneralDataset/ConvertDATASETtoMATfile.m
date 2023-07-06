@@ -57,8 +57,6 @@ function ConvertDATASETtoMATfile()
 
     fclose(current_file); %close the file
 
-
-
     symptoms=zeros(size(diseases,1),size(unique_symptoms,1)); %Now we can preallocate our array of features (symptoms)
 
     %The first size we need is the amount of entries or records in our
@@ -100,7 +98,11 @@ function ConvertDATASETtoMATfile()
 
     size(diseases) % Size of our target array 4920 entries and one label (The diseas).
     size(symptoms) % Size of our feature array 4920 entries and 132 features (The symptoms).
+    
+    un_dis = unique(diseases)
 
+    save 'GUILayout/unique_diseases.mat'
+    
     save('dataset.mat','diseases','symptoms','unique_symptoms'); %Here we save our tables with the diseas, our target class, and the symptoms. Additionally we save the unique features, which we will need in our GUI example.
 
 
