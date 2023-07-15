@@ -22,7 +22,7 @@ function TrainHHI_MLModel
     
     %----------------------------Models------------------------------------
     
-    %ML Model, classification network, Accuracy: 0.7764
+    %ML Model, neural network, Accuracy: 0.7764
     MLmodel = fitcnet(FeaturesTrain,TargetTrain); 
     [TargetTestPredicted, ~] = predict(MLmodel,FeaturesTest)
     
