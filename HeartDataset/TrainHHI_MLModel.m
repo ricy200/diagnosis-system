@@ -22,20 +22,21 @@ function TrainHHI_MLModel
     
     %----------------------------Models------------------------------------
     
-    %ML Model, classification network, Accuracy: 0.9075
-    %MLmodel = fitcnet(FeaturesTrain,TargetTrain); 
-    %[TargetTestPredicted, ~] = predict(MLmodel,FeaturesTest)
+    %ML Model, classification network, Accuracy: 0.7764
+    MLmodel = fitcnet(FeaturesTrain,TargetTrain); 
+    [TargetTestPredicted, ~] = predict(MLmodel,FeaturesTest)
     
-    % ML Model,  k-nearest neighbor classifier, Accuracy: 0.8951
+
+    % Alternatives:
+    % ML Model,  k-nearest neighbor classifier, Accuracy: 0.7230
     % MLmodel = fitcknn(FeaturesTrain,TargetTrain,"NumNeighbors",5)
     % [TargetTestPredicted, ~] = predict(MLmodel,FeaturesTest)
 
-    % ML Model, Decision trees, Accuracy: 0.9032
-    MLmodel = TreeBagger(20, FeaturesTrain, TargetTrain);
+    % ML Model, Decision trees, Accuracy: 0.7542
+    %MLmodel = TreeBagger(20, FeaturesTrain, TargetTrain);
     % Use our trained model on the test set features
-    [TargetTestPredictedfrst TargetTestScore] = predict(MLmodel,FeaturesTest);
-   
-    TargetTestPredicted = str2double(TargetTestPredictedfrst);
+    %[TargetTestPredictedfrst TargetTestScore] = predict(MLmodel,FeaturesTest);  
+    %TargetTestPredicted = str2double(TargetTestPredictedfrst);
     
     %-------------------------Accuracy-------------------------------------
 

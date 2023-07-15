@@ -45,9 +45,20 @@ function ConvertHEART_HEALTHtoMAT ()
 
     fclose(curr_file); %close the file
 
-    %size(symptoms_hu)
-    %size(all_symptoms_hu)
-    %size(curr_data)
+%------------ Make the data balanced between sick and not sick:------------
+    % As not sick people are overrepresented, we want to adjust the amount
 
+    % get sick people
+    wanted_num = find(symptoms_hh(:, 1) == 1);
+    % get not sick people
+    indicesToDelete = find(symptoms_hh(:, 1) == 0);
+    
+    % choose a sample to delete from not sick
+    subsetIndices = datasample(indicesToDelete, ceil(numel(indicesToDelete)-numel(wanted_num)), 'Replace', false);
+    
+    % delete the sample
+    symptoms_hh(subsetIndices, :) = [];
+
+    % save the data
     save('heart-health_indicators.mat','symptoms_hh','all_symptoms_hh');
 end
